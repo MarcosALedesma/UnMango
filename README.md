@@ -4,23 +4,10 @@
 
 ###### *// Trabajo Final Integrador*
 
-<!--
-  BANNER: elegí uno y borrá los otros tres (y su comentario).
-  Orden: 1) verde + azul petróleo, 2) verde + violeta, 3) verde + dorado, 4) verde + gris carbón.
-  Cuando elijas, usá el mismo degradé en el pie de página (al final del archivo).
--->
 
-<!-- OPCIÓN 1: verde + azul petróleo oscuro -->
-<img alt="NOMBRE_DEL_PROYECTO" src="https://capsule-render.vercel.app/api?type=waving&color=0:0B3C49,100:2ECC71&height=200&section=header&text=NOMBRE_DEL_PROYECTO&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Gesti%C3%B3n%20de%20gastos%20personales%20y%20compartidos&descAlignY=58&descSize=18" width="100%">
-
-<!-- OPCIÓN 2: verde + violeta -->
-<img alt="NOMBRE_DEL_PROYECTO" src="https://capsule-render.vercel.app/api?type=waving&color=0:6D28D9,100:2ECC71&height=200&section=header&text=NOMBRE_DEL_PROYECTO&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Gesti%C3%B3n%20de%20gastos%20personales%20y%20compartidos&descAlignY=58&descSize=18" width="100%">
-
-<!-- OPCIÓN 3: verde + dorado -->
+<!-- verde + dorado -->
 <img alt="NOMBRE_DEL_PROYECTO" src="https://capsule-render.vercel.app/api?type=waving&color=0:F59E0B,100:2ECC71&height=200&section=header&text=NOMBRE_DEL_PROYECTO&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Gesti%C3%B3n%20de%20gastos%20personales%20y%20compartidos&descAlignY=58&descSize=18" width="100%">
 
-<!-- OPCIÓN 4: verde + gris carbón -->
-<img alt="NOMBRE_DEL_PROYECTO" src="https://capsule-render.vercel.app/api?type=waving&color=0:1F2937,100:2ECC71&height=200&section=header&text=NOMBRE_DEL_PROYECTO&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Gesti%C3%B3n%20de%20gastos%20personales%20y%20compartidos&descAlignY=58&descSize=18" width="100%">
 
 <br>
 
@@ -143,52 +130,7 @@ flowchart LR
 
 La base de datos es relacional y está normalizada hasta la tercera forma normal (3FN).
 
-```mermaid
-erDiagram
-    USER ||--o{ CATEGORY : "crea"
-    USER ||--o{ EXPENSE : "paga"
-    CATEGORY ||--o{ EXPENSE : "clasifica"
-    RECEIPT |o--o| EXPENSE : "respalda"
-    USER ||--o{ RECURRING_EXPENSE : "define"
-    RECURRING_EXPENSE ||--o{ RECURRING_INSTANCE : "genera"
-    RECURRING_INSTANCE ||--o{ REMINDER_LOG : "registra"
-    RECURRING_INSTANCE |o--o| EXPENSE : "se paga con"
-    EVENT ||--o{ EVENT_MEMBER : "tiene"
-    USER ||--o{ EVENT_MEMBER : "participa"
-    EVENT ||--o{ EXPENSE : "agrupa"
-    EXPENSE ||--o{ EXPENSE_SPLIT : "se reparte en"
-    USER ||--o{ EXPENSE_SPLIT : "debe"
-    EVENT ||--o{ SETTLEMENT : "liquida"
-    EVENT ||--o{ EVENT_TASK : "lista"
-    USER ||--o{ NOTIFICATION : "recibe"
 
-    USER {
-        int id PK
-        string name
-        string email UK
-        string passwordHash
-    }
-    EXPENSE {
-        int id PK
-        int userId FK
-        int categoryId FK
-        int eventId FK
-        int amountMinor
-        date spentAt
-    }
-    RECURRING_INSTANCE {
-        int id PK
-        int recurringId FK
-        date periodStart
-        date dueDate
-        string status
-    }
-    EXPENSE_SPLIT {
-        int expenseId PK
-        int userId PK
-        int shareMinor
-    }
-```
 
 > [!TIP]
 > El diagrama es un resumen. El modelo completo está en [docs/diagrama-er.md](./docs/diagrama-er.md).
@@ -204,31 +146,6 @@ erDiagram
 
 La lectura automática (OCR) siempre es una propuesta: el usuario revisa y confirma antes de guardar el gasto.
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor U as Usuario
-    participant F as Frontend
-    participant B as Backend
-    participant O as ReceiptParser (OCR)
-    participant S as Almacenamiento
-    participant DB as PostgreSQL
-
-    U->>F: Selecciona o comparte un comprobante
-    F->>B: POST /api/v1/receipts (multipart)
-    B->>B: Valida tipo y tamaño del archivo
-    B->>S: Guarda el archivo
-    B->>O: parse(archivo)
-    O-->>B: monto, fecha y destinatario
-    Note over O,B: Si un campo no se detecta con confianza, queda vacío
-    B->>DB: INSERT Receipt
-    B-->>F: 201 con la propuesta
-    F-->>U: Muestra el formulario precargado
-    U->>F: Revisa y confirma
-    F->>B: POST /api/v1/expenses
-    B->>DB: INSERT Expense
-    B-->>F: 201 Expense
-```
 
 [Volver arriba](#top)
 
