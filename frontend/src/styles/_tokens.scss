@@ -1,0 +1,57 @@
+:root {
+  --color-primary: #1fa855;
+  --color-primary-2: #20c97b;
+  --color-primary-soft: #e3f6ea;
+  --color-dark: #0e3b2a;
+  --color-amber: #fbbf24;
+  --color-orange: #f97316;
+  --color-danger: #e5484d;
+
+  --color-text: #16283a;
+  --color-muted: #6b7a8a;
+  --color-bg: #f4f8f5;
+  --color-card: #ffffff;
+  --color-line: #e6edf0;
+
+  --gradient-cta: linear-gradient(90deg, var(--color-amber), var(--color-primary));
+  --shadow-card: 0 1px 2px #10281c0a, 0 4px 16px #10281c0d;
+  --shadow-pop: 0 8px 24px #10281c26;
+
+  --radius: 16px;
+  --radius-sm: 12px;
+  --font-base: 'Plus Jakarta Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #3b4b5c;
+  --sidebar-hover: #f0f6f2;
+  --sidebar-active-bg: var(--color-primary-soft);
+  --sidebar-active-text: #15a04c;
+  --sidebar-line: var(--color-line);
+  --sidebar-pattern: none;
+
+  --logo-mango: var(--color-primary);
+  --pattern-white: url('/patrones/mangos-blanco.svg');
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --color-text: #e8f5ec;
+  --color-muted: #93a89b;
+  --color-bg: #0b1d15;
+  --color-card: #12291f;
+  --color-line: #1f3a2d;
+  --color-primary-soft: #16402d;
+
+  --sidebar-bg: #0e3b2a;
+  --sidebar-text: #d7eadf;
+  --sidebar-hover: #ffffff14;
+  --sidebar-active-bg: var(--color-primary);
+  --sidebar-active-text: #ffffff;
+  --sidebar-line: #ffffff1f;
+  --sidebar-pattern: url('/patrones/mangos-verde.svg');
+
+  --logo-mango: #ffffff;
+
+  color-scheme: dark;
+}

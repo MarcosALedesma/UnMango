@@ -1,0 +1,69 @@
+@if (modal.isOpen()) {
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="expense-title"
+    tabindex="-1"
+    (click)="onBackdrop($event)"
+    (keydown.escape)="modal.close()"
+  >
+    <form class="sheet" [formGroup]="form" (ngSubmit)="submit()">
+      <header>
+        <button type="button" class="back" aria-label="Cerrar" (click)="modal.close()">
+          <app-icon name="back" />
+        </button>
+        <h2 id="expense-title">Registrar gasto</h2>
+      </header>
+
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" class="tab on" aria-selected="true">Manual</button>
+        <button type="button" role="tab" class="tab" disabled title="Disponible en la Fase 2">
+          Comprobante
+        </button>
+      </div>
+
+      <div class="field">
+        <label for="expense-description">Descripción <b class="req">*</b></label>
+        <input id="expense-description" formControlName="description" placeholder="Supermercado" />
+        @if (form.controls.description.touched && form.controls.description.invalid) {
+          <small class="error">Ingresá una descripción.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="expense-category">Categoría <b class="req">*</b></label>
+        <select id="expense-category" formControlName="category">
+          @for (c of categories; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="expense-amount">Monto <b class="req">*</b></label>
+        <div class="money">
+          <span class="pre">$</span>
+          <input
+            id="expense-amount"
+            type="number"
+            step="0.01"
+            formControlName="amount"
+            placeholder="24850"
+          />
+          <span class="post">ARS</span>
+        </div>
+        @if (form.controls.amount.touched && form.controls.amount.invalid) {
+          <small class="error">El monto debe ser mayor a cero.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="expense-date">Fecha <b class="req">*</b></label>
+        <input id="expense-date" type="date" formControlName="spentAt" />
+      </div>
+
+      <button type="submit" class="cta">Guardar</button>
+    </form>
+  </div>
+}

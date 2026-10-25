@@ -2,11 +2,9 @@
 
 <div align="center">
 
-###### *// Trabajo Final Integrador*
 
 
-<!-- verde + dorado -->
-<img alt="NOMBRE_DEL_PROYECTO" src="https://capsule-render.vercel.app/api?type=waving&color=0:F59E0B,100:2ECC71&height=200&section=header&text=NOMBRE_DEL_PROYECTO&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Gesti%C3%B3n%20de%20gastos%20personales%20y%20compartidos&descAlignY=58&descSize=18" width="100%">
+<img alt="UnMango" src="https://capsule-render.vercel.app/api?type=waving&color=0:F59E0B,100:2ECC71&height=200&section=header&text=UnMango&fontSize=48&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Mi%20Administrador%20y%20%20Nuestros%20Gastos%20Online&descAlignY=58&descSize=18" width="100%">
 
 
 <br>
@@ -18,13 +16,13 @@
 
 <br>
 
-[`Características`](#caracteristicas) [`Capturas`](#capturas) [`Arquitectura`](#arquitectura) [`Modelo de datos`](#modelo-de-datos) [`Comprobantes`](#comprobantes) [`Planificación`](#planificacion) [`Tecnologías`](#tecnologias) [`Instalación`](#instalacion) [`Documentación`](./docs) [`Reportar un problema`](https://github.com/TU_USUARIO/TU_REPO/issues)
+[`Características`](#caracteristicas) [`Capturas`](#capturas) [`Arquitectura`](#arquitectura) [`Modelo de datos`](#modelo-de-datos)  [`Planificación`](#planificacion) [`Tecnologías`](#tecnologias) [`Instalación`](#instalacion) 
 
 </div>
 
 ---
 
-**NOMBRE_DEL_PROYECTO** es una aplicación web, instalable como PWA, para gestionar gastos personales y compartidos. Permite cargar gastos a mano o con un comprobante, controlar gastos fijos con recordatorios y dividir cuentas entre amigos sin hacer cálculos.
+**UnMango** es una aplicación web, instalable como PWA, para gestionar gastos personales y compartidos. Permite cargar gastos a mano o con un comprobante, controlar gastos fijos con recordatorios y dividir cuentas entre amigos sin hacer cálculos.
 
 > [!NOTE]
 > El proyecto está en desarrollo activo. Algunas funcionalidades todavía no están disponibles. El avance por fase se detalla en [Planificación](#planificacion).
@@ -134,18 +132,6 @@ La base de datos es relacional y está normalizada hasta la tercera forma normal
 
 > [!TIP]
 > El diagrama es un resumen. El modelo completo está en [docs/diagrama-er.md](./docs/diagrama-er.md).
-
-[Volver arriba](#top)
-
-<a id="comprobantes"></a>
-<div align="center">
-  <img alt="FLUJO DE COMPROBANTES" src="https://readme-typing-svg.demolab.com?font=Orbitron&size=25&duration=2500&pause=1000&color=2ECC71&repeat=false&center=true&vCenter=true&width=600&height=35&lines=FLUJO+DE+COMPROBANTES">
-</div>
-
----
-
-La lectura automática (OCR) siempre es una propuesta: el usuario revisa y confirma antes de guardar el gasto.
-
 
 [Volver arriba](#top)
 

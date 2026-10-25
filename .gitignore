@@ -1,0 +1,29 @@
+# Dependencias y builds
+node_modules/
+dist/
+out-tsc/
+coverage/
+.angular/
+.sass-cache/
+
+# Variables de entorno (nunca se commitean; el ejemplo sí)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editores: se ignora todo salvo la configuración compartida
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+
+# Caches de herramientas
+.eslintcache

@@ -1,0 +1,17 @@
+<nav class="bnav" aria-label="Principal">
+  @for (item of left; track item.path) {
+    <a [routerLink]="item.path" routerLinkActive="on">
+      <app-icon [name]="item.icon" />{{ item.shortLabel }}
+    </a>
+  }
+
+  <button type="button" class="fab" aria-label="Registrar gasto" (click)="modal.open()">
+    <app-icon name="plus" [size]="28" />
+  </button>
+
+  @for (item of right; track item.path) {
+    <a [routerLink]="item.path" routerLinkActive="on">
+      <app-icon [name]="item.icon" />{{ item.shortLabel }}
+    </a>
+  }
+</nav>

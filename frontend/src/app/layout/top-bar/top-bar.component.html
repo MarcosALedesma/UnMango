@@ -1,0 +1,35 @@
+<header class="bar">
+  <app-logo [size]="30" />
+
+  <div class="actions">
+    <button type="button" class="icon-btn" aria-label="Notificaciones">
+      <app-icon name="bell" />
+    </button>
+
+    <div class="more">
+      <button
+        type="button"
+        class="icon-btn"
+        aria-label="Más opciones"
+        aria-haspopup="menu"
+        [attr.aria-expanded]="isOpen()"
+        (click)="toggle()"
+      >
+        <app-icon name="more" />
+      </button>
+
+      @if (isOpen()) {
+        <div class="menu" role="menu">
+          @for (item of items; track item.path) {
+            <a role="menuitem" [routerLink]="item.path" (click)="close()">
+              <app-icon [name]="item.icon" [size]="20" />{{ item.label }}
+            </a>
+          }
+          <button type="button" role="menuitem" (click)="close()">
+            <app-icon name="logout" [size]="20" />Cerrar sesión
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</header>

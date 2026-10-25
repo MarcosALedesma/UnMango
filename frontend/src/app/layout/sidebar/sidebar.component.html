@@ -1,0 +1,13 @@
+<aside class="side">
+  <div class="brand"><app-logo /></div>
+
+  <nav aria-label="Principal">
+    @for (item of items; track item.path) {
+      <a class="nav" [routerLink]="item.path" routerLinkActive="on">
+        <app-icon [name]="item.icon" />{{ item.label }}
+      </a>
+    }
+  </nav>
+
+  <app-user-card class="user" />
+</aside>

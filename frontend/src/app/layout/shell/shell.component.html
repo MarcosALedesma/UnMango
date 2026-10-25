@@ -1,0 +1,11 @@
+<div class="app">
+  <app-sidebar class="desktop-only" />
+
+  <div class="content">
+    <app-top-bar class="mobile-only" />
+    <main><router-outlet /></main>
+  </div>
+</div>
+
+<app-bottom-nav class="mobile-only" />
+<app-expense-modal (saved)="onSaved($event)" />

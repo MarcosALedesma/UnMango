@@ -1,0 +1,22 @@
+<span class="logo">
+  <svg
+    [attr.width]="size()"
+    [attr.height]="size()"
+    viewBox="0 0 40 40"
+    fill="none"
+    stroke-width="2.4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <g class="fruit">
+      <path d="M8 28C4 20 10 10 22 9c10 0 12 11 6 19-5 7-16 8-20 0z" />
+      <path d="M22 9c0-3 1-5 3-6" />
+      <path d="M26 17c1 3 0 6-2 8" />
+    </g>
+    <path class="leaf" d="M24 6c4-3 9-2 11 0-3 3-8 3-11 0z" />
+  </svg>
+  @if (withText()) {
+    <span class="text"><span class="un">Un</span><span class="mango">Mango</span></span>
+  }
+</span>

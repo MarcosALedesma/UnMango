@@ -1,0 +1,26 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fruit {
+  stroke: #f59e0b;
+}
+
+.leaf {
+  stroke: var(--color-primary);
+}
+
+.text {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.un {
+  color: var(--color-amber);
+}
+
+.mango {
+  color: var(--logo-mango);
+}

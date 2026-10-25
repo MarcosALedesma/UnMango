@@ -1,0 +1,39 @@
+.app {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100%;
+}
+
+.content {
+  min-width: 0;
+}
+
+main {
+  padding: 24px 28px 40px;
+}
+
+app-sidebar {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  main {
+    padding: 8px 14px 100px;
+  }
+}
