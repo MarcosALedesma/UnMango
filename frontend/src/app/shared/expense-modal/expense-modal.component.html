@@ -33,9 +33,9 @@
 
       <div class="field">
         <label for="expense-category">Categoría <b class="req">*</b></label>
-        <select id="expense-category" formControlName="category">
-          @for (c of categories; track c) {
-            <option [value]="c">{{ c }}</option>
+        <select id="expense-category" formControlName="categoryId">
+          @for (c of categories.all(); track c.id) {
+            <option [value]="c.id">{{ c.name }}</option>
           }
         </select>
       </div>

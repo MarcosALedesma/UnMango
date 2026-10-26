@@ -1,1 +1,71 @@
-<p>dashboard works!</p>
+<app-page-header title="Hola, User " subtitle="Tu resumen de tus finanzas" />
+
+<section class="kpis" aria-label="Resumen del mes">
+  @for (kpi of kpis(); track kpi.label) {
+    <app-kpi-card
+      [label]="kpi.label"
+      [icon]="kpi.icon"
+      [tone]="kpi.tone"
+      [valueMinor]="kpi.valueMinor"
+      [change]="kpi.change"
+    />
+  }
+</section>
+
+<div class="row">
+  <section class="card">
+    <h2>Gastos por categoría</h2>
+    @if (chartData().length > 0) {
+      <app-bar-chart [data]="chartData()" />
+    } @else {
+      <p class="empty">Todavía no hay gastos este mes.</p>
+    }
+  </section>
+
+  <section class="card">
+    <h2>Resumen del mes</h2>
+    @if (chartData().length > 0) {
+      <app-donut-chart [data]="chartData()">
+        <strong>{{ monthTotal() | money }}</strong>
+        <span>Total</span>
+      </app-donut-chart>
+    } @else {
+      <p class="empty">Sin datos para mostrar.</p>
+    }
+  </section>
+</div>
+
+<div class="row">
+  <section class="card">
+    <header class="card-head">
+      <h2>Últimos gastos</h2>
+      <a routerLink="/gastos">Ver todos</a>
+    </header>
+    <app-expense-table [rows]="recentRows()" />
+  </section>
+
+  <section class="card">
+    <header class="card-head">
+      <h2>Próximos vencimientos</h2>
+      <a routerLink="/gastos-fijos">Ver todos</a>
+    </header>
+    @if (upcoming().length > 0) {
+      <ul class="upcoming">
+        @for (u of upcoming(); track u.item.id) {
+          <li>
+            <app-category-icon [category]="u.category" [size]="20" />
+            <div class="info">
+              <strong>{{ u.item.name }}</strong>
+              <small>
+                {{ periodicityLabel[u.item.periodicity] }} · {{ u.item.nextDueDate | shortDate }}
+              </small>
+            </div>
+            <span class="amt" [class.soon]="u.soon">{{ u.item.amountMinor | money }}</span>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="empty">No hay vencimientos próximos.</p>
+    }
+  </section>
+</div>

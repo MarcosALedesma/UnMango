@@ -1,1 +1,52 @@
-<p>gastos works!</p>
+<app-page-header title="Gastos" subtitle="Gestioná tus gastos y mantené el control">
+  <div class="search">
+    <label for="gastos-search" class="sr-only">Buscar gastos</label>
+    <app-icon name="search" [size]="16" />
+    <input
+      #q
+      id="gastos-search"
+      type="search"
+      placeholder="Buscar..."
+      [value]="search()"
+      (input)="onSearch(q.value)"
+    />
+  </div>
+  <button type="button" class="btn-primary" (click)="modal.open()">
+    <app-icon name="plus" [size]="18" />Nuevo gasto
+  </button>
+</app-page-header>
+
+<div class="chips" role="group" aria-label="Filtrar por categoría">
+  <button
+    type="button"
+    class="chip"
+    [class.on]="categoryId() === null"
+    [attr.aria-pressed]="categoryId() === null"
+    (click)="selectCategory(null)"
+  >
+    Todas
+  </button>
+  @for (c of categories.all(); track c.id) {
+    <button
+      type="button"
+      class="chip"
+      [class.on]="categoryId() === c.id"
+      [attr.aria-pressed]="categoryId() === c.id"
+      (click)="selectCategory(c.id)"
+    >
+      {{ c.name }}
+    </button>
+  }
+</div>
+
+<section class="card">
+  @if (pageRows().length > 0) {
+    <app-expense-table [rows]="pageRows()" [sort]="sort()" (sortChange)="toggleSort($event)" />
+    <footer class="foot">
+      <span class="count">Mostrando {{ range().from }}–{{ range().to }} de {{ total() }}</span>
+      <app-paginator [page]="page()" [totalPages]="totalPages()" (pageChange)="goTo($event)" />
+    </footer>
+  } @else {
+    <p class="empty">No encontramos gastos con esos filtros.</p>
+  }
+</section>

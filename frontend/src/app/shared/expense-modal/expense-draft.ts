@@ -1,6 +1,6 @@
 export interface ExpenseDraft {
   readonly description: string;
-  readonly category: string;
+  readonly categoryId: string;
   readonly amountMinor: number;
   readonly spentAt: string;
 }

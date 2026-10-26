@@ -1,1 +1,14 @@
-<p>configuracion works!</p>
+<h1>Configuración</h1>
+<p class="sub">Personalizá la aplicación.</p>
+
+<section class="card">
+  <h2>Apariencia</h2>
+  <div class="seg" role="group" aria-label="Tema">
+    <button type="button" [class.on]="!theme.isDark()" (click)="theme.set('light')">
+      <app-icon name="sun" [size]="18" />Claro
+    </button>
+    <button type="button" [class.on]="theme.isDark()" (click)="theme.set('dark')">
+      <app-icon name="moon" [size]="18" />Oscuro
+    </button>
+  </div>
+</section>

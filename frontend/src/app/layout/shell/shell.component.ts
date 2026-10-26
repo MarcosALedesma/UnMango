@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ExpensesService } from '../../core/expenses.service';
 import { ExpenseDraft } from '../../shared/expense-modal/expense-draft';
 import { ExpenseModalComponent } from '../../shared/expense-modal/expense-modal.component';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
@@ -21,7 +22,9 @@ import { TopBarComponent } from '../top-bar/top-bar.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShellComponent {
+  private readonly expenses = inject(ExpensesService);
+
   protected onSaved(draft: ExpenseDraft): void {
-    console.log(draft);
+    this.expenses.add({ ...draft, origin: 'PERSONAL' });
   }
 }

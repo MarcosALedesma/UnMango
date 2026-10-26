@@ -13,6 +13,7 @@
         "@angular/platform-browser": "^18.2.0",
         "@angular/platform-browser-dynamic": "^18.2.0",
         "@angular/router": "^18.2.0",
+        "date-fns": "^4.4.0",
         "rxjs": "~7.8.0",
         "tslib": "^2.3.0",
         "zone.js": "~0.14.10",
@@ -814,6 +815,8 @@
     "cssesc": ["cssesc@3.0.0", "", { "bin": { "cssesc": "bin/cssesc" } }, "sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg=="],
 
     "custom-event": ["custom-event@1.0.1", "", {}, "sha512-GAj5FOq0Hd+RsCGVJxZuKaIDXDf3h6GQoNEjFgbLLI/trgtavwUbSnZ5pVfg27DVCaWjIohryS0JFwIJyT2cMg=="],
+
+    "date-fns": ["date-fns@4.4.0", "", {}, "sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w=="],
 
     "date-format": ["date-format@4.0.14", "", {}, "sha512-39BOQLs9ZjKh0/patS9nrT8wc3ioX3/eA/zgbKNopnF2wCqJEoxywwwElATYvRsXdnOxA/OQeQoFZ3rFjVajhg=="],
 
