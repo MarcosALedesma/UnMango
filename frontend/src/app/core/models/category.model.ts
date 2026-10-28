@@ -6,3 +6,4 @@ export interface Category {
   readonly icon: IconName;
   readonly color: string;
 }
+export type CategoryDraft = Omit<Category, 'id'>;

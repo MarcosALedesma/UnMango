@@ -60,6 +60,9 @@ export interface SortState {
                 Monto
               }
             </th>
+            @if (actions()) {
+              <th scope="col"><span class="sr-only">Acciones</span></th>
+            }
           </tr>
         </thead>
         <tbody>
@@ -80,6 +83,26 @@ export interface SortState {
                 </span>
               </td>
               <td class="amount">{{ row.expense.amountMinor | money }}</td>
+              @if (actions()) {
+                <td class="row-actions">
+                  <button
+                    type="button"
+                    class="icon-action"
+                    [attr.aria-label]="'Editar ' + row.expense.description"
+                    (click)="edit.emit(row.expense)"
+                  >
+                    <app-icon name="edit" [size]="16" />
+                  </button>
+                  <button
+                    type="button"
+                    class="icon-action danger"
+                    [attr.aria-label]="'Eliminar ' + row.expense.description"
+                    (click)="remove.emit(row.expense)"
+                  >
+                    <app-icon name="trash" [size]="16" />
+                  </button>
+                </td>
+              }
             </tr>
           }
         </tbody>
@@ -149,7 +172,10 @@ export interface SortState {
       color: var(--color-muted);
       font-size: 11px;
     }
-
+    .row-actions {
+      text-align: right;
+      white-space: nowrap;
+    }
     @media (max-width: 860px) {
       .col-date,
       .col-cat {
@@ -166,6 +192,9 @@ export class ExpenseTableComponent {
   readonly rows = input.required<readonly ExpenseRow[]>();
   readonly sort = input<SortState | null>(null);
   readonly sortChange = output<SortField>();
+  readonly actions = input<boolean>(false);
+  readonly edit = output<Expense>();
+  readonly remove = output<Expense>();
 
   protected ariaSort(field: SortField): 'ascending' | 'descending' | 'none' | null {
     const current = this.sort();

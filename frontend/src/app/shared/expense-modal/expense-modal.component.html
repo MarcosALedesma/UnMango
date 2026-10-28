@@ -1,33 +1,23 @@
 @if (modal.isOpen()) {
-  <div
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="expense-title"
-    tabindex="-1"
-    (click)="onBackdrop($event)"
-    (keydown.escape)="modal.close()"
+  <app-dialog
+    [title]="modal.editing() ? 'Editar gasto' : 'Registrar gasto'"
+    (closed)="modal.close()"
   >
-    <form class="sheet" [formGroup]="form" (ngSubmit)="submit()">
-      <header>
-        <button type="button" class="back" aria-label="Cerrar" (click)="modal.close()">
-          <app-icon name="back" />
-        </button>
-        <h2 id="expense-title">Registrar gasto</h2>
-      </header>
-
+    @if (!modal.editing()) {
       <div class="tabs" role="tablist">
         <button type="button" role="tab" class="tab on" aria-selected="true">Manual</button>
         <button type="button" role="tab" class="tab" disabled title="Disponible en la Fase 2">
           Comprobante
         </button>
       </div>
+    }
 
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
       <div class="field">
         <label for="expense-description">Descripción <b class="req">*</b></label>
         <input id="expense-description" formControlName="description" placeholder="Supermercado" />
         @if (form.controls.description.touched && form.controls.description.invalid) {
-          <small class="error">Ingresá una descripción.</small>
+          <small class="field-error">Ingresá una descripción.</small>
         }
       </div>
 
@@ -54,7 +44,7 @@
           <span class="post">ARS</span>
         </div>
         @if (form.controls.amount.touched && form.controls.amount.invalid) {
-          <small class="error">El monto debe ser mayor a cero.</small>
+          <small class="field-error">El monto debe ser mayor a cero.</small>
         }
       </div>
 
@@ -63,7 +53,9 @@
         <input id="expense-date" type="date" formControlName="spentAt" />
       </div>
 
-      <button type="submit" class="cta">Guardar</button>
+      <button type="submit" class="cta">
+        {{ modal.editing() ? 'Guardar cambios' : 'Guardar' }}
+      </button>
     </form>
-  </div>
+  </app-dialog>
 }

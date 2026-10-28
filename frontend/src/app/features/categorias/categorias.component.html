@@ -1,1 +1,39 @@
-<p>categorias works!</p>
+<app-page-header title="Categorías" subtitle="Organizá tus gastos a tu manera">
+  <button type="button" class="btn-primary" (click)="openNew()">
+    <app-icon name="plus" [size]="18" />Nueva categoría
+  </button>
+</app-page-header>
+
+<ul class="list card">
+  @for (row of rows(); track row.category.id) {
+    <li>
+      <app-category-icon [category]="row.category" [size]="22" />
+      <div class="info">
+        <strong>{{ row.category.name }}</strong>
+        <small>
+          {{ row.usage === 1 ? '1 movimiento' : row.usage + ' movimientos' }}
+        </small>
+      </div>
+      <button
+        type="button"
+        class="icon-action"
+        [attr.aria-label]="'Editar ' + row.category.name"
+        (click)="openEdit(row.category)"
+      >
+        <app-icon name="edit" [size]="16" />
+      </button>
+      <button
+        type="button"
+        class="icon-action danger"
+        [attr.aria-label]="'Eliminar ' + row.category.name"
+        (click)="remove(row.category)"
+      >
+        <app-icon name="trash" [size]="16" />
+      </button>
+    </li>
+  }
+</ul>
+
+@if (editing() !== null) {
+  <app-category-form [item]="editingItem()" (saved)="save($event)" (cancelled)="closeForm()" />
+}

@@ -1,1 +1,68 @@
-<p>gastos-fijos works!</p>
+<app-page-header title="Gastos fijos" subtitle="Gestioná tus suscripciones y pagos recurrentes">
+  <button type="button" class="btn-primary" (click)="openNew()">
+    <app-icon name="plus" [size]="18" />Nuevo gasto fijo
+  </button>
+</app-page-header>
+
+@if (rows().length > 0) {
+  <ul class="list card">
+    @for (row of rows(); track row.item.id) {
+      <li [class.paused]="!row.item.active">
+        <app-category-icon [category]="row.category" [size]="22" />
+
+        <div class="info">
+          <strong>{{ row.item.name }}</strong>
+          <small>
+            {{ periodicityLabel[row.item.periodicity] }} · Próximo:
+            {{ row.item.nextDueDate | shortDate }}
+          </small>
+        </div>
+
+        <div class="side">
+          <strong class="amt">{{ row.item.amountMinor | money }}</strong>
+          <span class="badge" [class.off]="!row.item.active">
+            {{ row.item.active ? 'Activo' : 'Pausado' }}
+          </span>
+        </div>
+
+        <div class="actions">
+          @if (row.item.active) {
+            <button type="button" class="pay" (click)="markPaid(row.item)">
+              <app-icon name="check" [size]="16" />Pagado
+            </button>
+          }
+          <button
+            type="button"
+            class="icon-action"
+            [attr.aria-label]="'Editar ' + row.item.name"
+            (click)="openEdit(row.item)"
+          >
+            <app-icon name="edit" [size]="16" />
+          </button>
+          <button
+            type="button"
+            class="icon-action"
+            [attr.aria-label]="(row.item.active ? 'Pausar ' : 'Activar ') + row.item.name"
+            (click)="toggle(row.item)"
+          >
+            <app-icon [name]="row.item.active ? 'pause' : 'play'" [size]="16" />
+          </button>
+          <button
+            type="button"
+            class="icon-action danger"
+            [attr.aria-label]="'Eliminar ' + row.item.name"
+            (click)="remove(row.item)"
+          >
+            <app-icon name="trash" [size]="16" />
+          </button>
+        </div>
+      </li>
+    }
+  </ul>
+} @else {
+  <p class="empty card">Todavía no cargaste gastos fijos.</p>
+}
+
+@if (editing() !== null) {
+  <app-recurring-form [item]="editingItem()" (saved)="save($event)" (cancelled)="closeForm()" />
+}

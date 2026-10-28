@@ -3,6 +3,8 @@ import { addMonths, format, setDate } from 'date-fns';
 import { Category } from './models/category.model';
 import { Expense, ExpenseOrigin } from './models/expense.model';
 import { RecurringExpense } from './models/recurring-expense.model';
+import { Periodicity } from './models/recurring-expense.model';
+import { nextDueDate } from './recurrence';
 
 const DATE_FORMAT = 'yyyy-MM-dd';
 
@@ -12,12 +14,6 @@ function dayOf(monthsAgo: number, day: number): string {
   const today = new Date();
   const maxDay = monthsAgo === 0 ? today.getDate() : 28;
   return format(setDate(addMonths(today, -monthsAgo), Math.min(day, maxDay)), DATE_FORMAT);
-}
-
-function nextDue(day: number): string {
-  const today = new Date();
-  const base = day >= today.getDate() ? today : addMonths(today, 1);
-  return format(setDate(base, Math.min(day, 28)), DATE_FORMAT);
 }
 
 function expense(
@@ -76,50 +72,31 @@ export const MOCK_EXPENSES: readonly Expense[] = [
   expense('e24', 'Gimnasio', 'cat-health', 12000, 1, 3, 'RECURRING'),
 ];
 
+function recurring(
+  id: string,
+  name: string,
+  categoryId: string,
+  pesos: number,
+  periodicity: Periodicity,
+  dueDay: number,
+): RecurringExpense {
+  return {
+    id,
+    name,
+    categoryId,
+    amountMinor: ars(pesos),
+    periodicity,
+    dueDay,
+    nextDueDate: nextDueDate(periodicity, dueDay),
+    active: true,
+  };
+}
+
 export const MOCK_RECURRING: readonly RecurringExpense[] = [
-  {
-    id: 'r1',
-    name: 'Alquiler',
-    categoryId: 'cat-housing',
-    amountMinor: ars(65000),
-    periodicity: 'MONTHLY',
-    nextDueDate: nextDue(5),
-    active: true,
-  },
-  {
-    id: 'r2',
-    name: 'Luz',
-    categoryId: 'cat-housing',
-    amountMinor: ars(12400),
-    periodicity: 'MONTHLY',
-    nextDueDate: nextDue(28),
-    active: true,
-  },
-  {
-    id: 'r3',
-    name: 'Internet',
-    categoryId: 'cat-housing',
-    amountMinor: ars(8900),
-    periodicity: 'MONTHLY',
-    nextDueDate: nextDue(27),
-    active: true,
-  },
-  {
-    id: 'r4',
-    name: 'Netflix',
-    categoryId: 'cat-subs',
-    amountMinor: ars(6900),
-    periodicity: 'MONTHLY',
-    nextDueDate: nextDue(18),
-    active: true,
-  },
-  {
-    id: 'r5',
-    name: 'Gimnasio',
-    categoryId: 'cat-health',
-    amountMinor: ars(12000),
-    periodicity: 'MONTHLY',
-    nextDueDate: nextDue(22),
-    active: true,
-  },
+  recurring('r1', 'Alquiler', 'cat-housing', 65000, 'MONTHLY', 5),
+  recurring('r2', 'Luz', 'cat-housing', 12400, 'MONTHLY', 28),
+  recurring('r3', 'Internet', 'cat-housing', 8900, 'MONTHLY', 27),
+  recurring('r4', 'Netflix', 'cat-subs', 6900, 'MONTHLY', 18),
+  recurring('r5', 'Gimnasio', 'cat-health', 12000, 'MONTHLY', 22),
+  recurring('r6', 'Clase de yoga', 'cat-health', 4500, 'WEEKLY', 6),
 ];

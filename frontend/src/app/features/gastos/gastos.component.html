@@ -41,10 +41,21 @@
 
 <section class="card">
   @if (pageRows().length > 0) {
-    <app-expense-table [rows]="pageRows()" [sort]="sort()" (sortChange)="toggleSort($event)" />
+    <app-expense-table
+      [rows]="pageRows()"
+      [sort]="sort()"
+      [actions]="true"
+      (sortChange)="toggleSort($event)"
+      (edit)="edit($event)"
+      (remove)="remove($event)"
+    />
     <footer class="foot">
       <span class="count">Mostrando {{ range().from }}–{{ range().to }} de {{ total() }}</span>
-      <app-paginator [page]="page()" [totalPages]="totalPages()" (pageChange)="goTo($event)" />
+      <app-paginator
+        [page]="currentPage()"
+        [totalPages]="totalPages()"
+        (pageChange)="goTo($event)"
+      />
     </footer>
   } @else {
     <p class="empty">No encontramos gastos con esos filtros.</p>

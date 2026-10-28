@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { CategoriesService } from '../../core/categories.service';
 import { ExpenseModalService } from '../../core/expense-modal.service';
 import { ExpensesService } from '../../core/expenses.service';
+import { Expense } from '../../core/models/expense.model';
+import { ToastService } from '../../core/toast.service';
 import {
   ExpenseRow,
   ExpenseTableComponent,
@@ -32,6 +34,7 @@ function normalize(text: string): string {
 })
 export class GastosComponent {
   private readonly expenses = inject(ExpensesService);
+  private readonly toast = inject(ToastService);
   protected readonly categories = inject(CategoriesService);
   protected readonly modal = inject(ExpenseModalService);
 
@@ -72,15 +75,16 @@ export class GastosComponent {
 
   protected readonly total = computed(() => this.sorted().length);
   protected readonly totalPages = computed(() => Math.max(1, Math.ceil(this.total() / PAGE_SIZE)));
+  protected readonly currentPage = computed(() => Math.min(this.page(), this.totalPages()));
 
   protected readonly pageRows = computed(() => {
-    const start = (this.page() - 1) * PAGE_SIZE;
+    const start = (this.currentPage() - 1) * PAGE_SIZE;
     return this.sorted().slice(start, start + PAGE_SIZE);
   });
 
   protected readonly range = computed(() => ({
-    from: this.total() === 0 ? 0 : (this.page() - 1) * PAGE_SIZE + 1,
-    to: Math.min(this.page() * PAGE_SIZE, this.total()),
+    from: this.total() === 0 ? 0 : (this.currentPage() - 1) * PAGE_SIZE + 1,
+    to: Math.min(this.currentPage() * PAGE_SIZE, this.total()),
   }));
 
   protected onSearch(value: string): void {
@@ -105,5 +109,16 @@ export class GastosComponent {
 
   protected goTo(page: number): void {
     this.page.set(page);
+  }
+
+  protected edit(expense: Expense): void {
+    this.modal.edit(expense);
+  }
+
+  protected remove(expense: Expense): void {
+    this.expenses.remove(expense.id);
+    this.toast.show('Gasto eliminado', {
+      action: { label: 'Deshacer', run: () => this.expenses.restore(expense) },
+    });
   }
 }

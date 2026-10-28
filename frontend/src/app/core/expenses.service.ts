@@ -17,4 +17,24 @@ export class ExpensesService {
     this.items.update((list) => sortByDateDesc([expense, ...list]));
     return expense;
   }
+
+  update(id: string, changes: Partial<NewExpense>): void {
+    this.items.update((list) =>
+      sortByDateDesc(list.map((e) => (e.id === id ? { ...e, ...changes } : e))),
+    );
+  }
+
+  remove(id: string): void {
+    this.items.update((list) => list.filter((e) => e.id !== id));
+  }
+
+  restore(expense: Expense): void {
+    this.items.update((list) =>
+      sortByDateDesc([expense, ...list.filter((e) => e.id !== expense.id)]),
+    );
+  }
+
+  countByCategory(categoryId: string): number {
+    return this.items().filter((e) => e.categoryId === categoryId).length;
+  }
 }

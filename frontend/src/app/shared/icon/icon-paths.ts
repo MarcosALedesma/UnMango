@@ -79,6 +79,20 @@ export const ICON_PATHS = {
     'M17 7h5',
   ],
   tv: ['M4 7h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z', 'm17 2-5 5-5-5'],
+  edit: ['M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z', 'm15 5 4 4'],
+  trash: [
+    'M3 6h18',
+    'M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6',
+    'M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2',
+    'M10 11v6',
+    'M14 11v6',
+  ],
+  close: ['M18 6 6 18', 'm6 6 12 12'],
+  pause: [
+    'M7 4h2a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z',
+    'M15 4h2a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z',
+  ],
+  play: ['m6 3 14 9-14 9z'],
 } as const satisfies Record<string, readonly string[]>;
 
 export type IconName = keyof typeof ICON_PATHS;
